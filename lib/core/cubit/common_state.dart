@@ -21,6 +21,15 @@ class CommonDataFetchedState<Type> extends CommonState {
   List<Object?> get props => item;
 }
 
+class CommonDataState<Type> extends CommonState {
+  final Type item;
+
+  CommonDataState({required this.item});
+
+  @override
+  List<Object?> get props => [item];
+}
+
 class CommonErrorState extends CommonState {
   final String message;
 

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_clean_architecture/core/cubit/common_state.dart';
 import 'package:todo_clean_architecture/features/todo/data/models/todo_model.dart';
 import 'package:todo_clean_architecture/features/todo/presentation/cubit/fetch_todo_list_cubit.dart';
+import 'package:todo_clean_architecture/features/todo/presentation/ui/screens/add_todo_screen.dart';
 
 class TodoWidgets extends StatefulWidget {
   const TodoWidgets({super.key});
@@ -16,13 +17,23 @@ class _TodoWidgetsState extends State<TodoWidgets> {
   @override
   void initState() {
     super.initState();
-    context.read<FetchTodoListCubit>().fetchTodoList();
+    context.read<FetchTodoListCubit>().fetchData();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (_) => const AddTodoScreens(),
+            ),
+          );
+        },
+        child: const Icon(Icons.add),
+      ),
       body: BlocBuilder<FetchTodoListCubit, CommonState>(
         builder: (context, state) {
           if (state is CommonLoadingState) {
